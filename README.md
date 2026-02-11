@@ -1,73 +1,69 @@
-# SmartBuild Weight Prediction (Task 1 – Academic Project)
+# SmartBuild Weight & Error Prediction (Academic Project)
 
-This repository contains my student project developed as part of an academic assignment. The goal is to build a machine learning model that predicts the final product weight (`weight_in_kg`) using SmartBuild’s manufacturing data. The project demonstrates a complete end-to-end workflow, including data cleaning, preprocessing, feature engineering, model training, evaluation, and visualization.
+This repository contains an end-to-end machine learning workflow to predict manufacturing outcomes using SmartBuild’s data.
+
+---
+
+## Objective
+Build predictive models using **pre-production machine settings and raw material measurements** to:
+- Predict final product **weight (`weight_in_kg`)**
+- Predict **production errors** before machine execution
 
 ---
 
 ## Project Structure
-- **Task1_Q1.ipynb** – Main notebook containing all steps: data exploration, feature engineering, encoding, model training, and evaluation.
-- **Machine_Settings_Log_01.csv** – Raw machine settings dataset.
-- **Production_Log_01.csv** – Raw production output dataset.
+- `Task1_Weight_FINAL.ipynb` – Weight prediction (Regression)
+- `Task2_Error_Prediction.ipynb` – Error prediction (Classification)
+- `Machine_Settings_Log_01.csv` – Raw machine settings dataset
+- `Production_Log_01.csv` – Raw production output dataset
 
 ---
 
-## Data Processing Overview
-Key data preparation tasks included:
+## Data Processing & Scope
+This repository reflects **individual academic work**. While part of a broader assignment, only the notebooks and analyses personally implemented by me are included here.
 
-- Inspecting and handling missing values  
-- Removing irrelevant or low-quality variables  
-- Correcting inconsistent column names  
-- Detecting and removing outliers from the target variable (`weight_in_kg`) using a 5-sigma threshold (values beyond five standard deviations from the mean were excluded)  
-- Conducting exploratory analysis and feature investigation  
-- Applying ordinal encoding to ordered categories  
-- Applying one-hot encoding to nominal categorical variables  
-- Producing the final cleaned and fully encoded dataset for model training  
+**Core Preprocessing:**
+- **Cleaning:** Missing value inspection and column name standardization.
+- **Outlier Removal (Weight):** Applied IQR-based method to `weight_in_kg` using a `Q3 + (5 × IQR)` threshold to remove extreme upper-tail outliers.
+- **Encoding:** One-hot encoding for nominal categorical variables.
+- **Leakage Prevention:** All features used are **pre-production**, ensuring the model does not rely on post-production data.
 
 ---
 
-## Modeling Approach
-A **Random Forest Regressor** was selected due to its robustness and ability to model nonlinear relationships and handle multicollinearity.
+## Task 1 – Weight Prediction (`weight_in_kg`)
 
-Main configurations:
-- Train–test split: 80% training, 20% testing  
-- `RandomForestRegressor` with default parameters and a fixed `random_state`  
-- Evaluation metrics:
-  - R² Score  
-  - Mean Absolute Error (MAE)  
-  - Mean Squared Error (MSE)  
-  - Root Mean Squared Error (RMSE)
+### Modeling Approach
+A **Random Forest Regressor** was selected to handle nonlinear relationships and provide resistance to multicollinearity.
+- **Configuration:** 80/20 train-test split, 200 trees, and a maximum depth of 15.
+- **Evaluation:** R² Score, MAE, MSE, and RMSE.
+- **Results Summary:** The model demonstrates a strong predictive signal, indicating that input material properties and machine settings are reliable predictors of final weight.
 
 ---
 
-## Evaluation and Visualizations
-The notebook includes:
-- Actual vs. Predicted values plot  
-- Residual analysis plot  
-- Feature importance visualization  
-- Bar chart of evaluation metrics  
+## Task 2 – Error Prediction
 
-These visualizations help assess model performance beyond numerical scores.
-
----
-
-## Results Summary
-The Random Forest model produced strong predictive performance across multiple train–test splits, where the split ratio remained constant but the underlying samples varied due to different random seeds. Metrics indicate a high degree of variance explained and relatively low error values, demonstrating that the model fits the provided data well.
+### Modeling Approach
+A **Random Forest Classifier** was implemented to identify binary outcomes (**Error** vs. **No Error**).
+- **Feature Analysis:** EDA identified **Ionization Class B** as a primary risk factor for failure, whereas **Flux Compensation** classes showed a uniform error distribution across the dataset.
+- **Methodology:** 80/20 train-test split using pre-production features to support proactive decision-making.
+- **Evaluation:** Confusion Matrix (focusing on reducing False Negatives), Precision, Recall, and F1-Score.
 
 ---
 
-## Next Steps / Improvements
-Future improvements I could implement: 
+## Technologies Used
+- **Python 3.11.7**
+- pandas, NumPy
+- scikit-learn
+- matplotlib, seaborn
 
-- Hyperparameter tuning for optimized model performance  
-- Cross-validation for more stable evaluation  
-- Experimenting with boosting-based algorithms  
-- Pipeline-based preprocessing for reproducibility  
-- Alternative outlier detection methods (e.g., IQR-based filtering)  
+---
 
-**Technologies used:**  
-Python 3.12.5, Pandas, NumPy, Matplotlib, Seaborn, scikit-learn
+## Future Improvements
+- **Automated Tuning:** Use of **GridSearchCV** to systematically find optimal hyperparameters.
+- **Validation:** Implementing **Cross-validation** to ensure model stability across different data folds.
+- **Pipelines:** Transitioning to Pipeline-based preprocessing to automate the process
 
 ---
 
 ## Note
-This project was completed solely for educational purposes within the scope of a student assignment. The dataset and methods are not intended for real-world use or production predictions. The dataset and methods may be further refined.
+This project was completed for educational purposes. The dataset and methods are intended for academic demonstration and may require further refinement for real-world production environments.
