@@ -52,7 +52,7 @@ A **Random Forest Classifier** was implemented to identify binary outcomes (**Er
 
 ## Technologies Used
 - **Python 3.11.7**
-- pandas, NumPy
+- pandas
 - scikit-learn
 - matplotlib, seaborn
 
