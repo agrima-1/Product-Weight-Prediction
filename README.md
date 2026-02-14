@@ -1,6 +1,6 @@
 # SmartBuild Weight & Error Prediction (Academic Project)
 
-This repository contains an end-to-end machine learning workflow to predict manufacturing outcomes using SmartBuild’s data.
+This repository contains an end-to-end machine learning workflow to predict manufacturing outcomes using SmartBuild’s data. These tasks were part of an academic project where our role was data science consultants.
 
 ---
 
